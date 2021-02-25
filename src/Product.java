@@ -9,16 +9,12 @@ public class Product {
         this.qty = qty;
     }
 
-    public int addQty(int addition) {
+    public void addQty(int addition) {
         qty += addition;
-
-        return qty;
     }
 
-    public int removeQty(int subtraction) {
+    public void removeQty(int subtraction) {
         qty = subtraction > qty ? 0 : qty - subtraction;
-
-        return qty;
     }
 
     public double totalPrice() {
@@ -27,5 +23,9 @@ public class Product {
 
     public String getId() {
         return id;
+    }
+
+    public int getQty() {
+        return qty;
     }
 }

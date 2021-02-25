@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory {
-    private Map<String, Product> products;
+    private final Map<String, Product> products;
 
     public Inventory() {
         products = new HashMap<>();
@@ -27,24 +27,25 @@ public class Inventory {
 
     }
 
-    public int addProductQty(String productId, int addition) {
-        if (products.containsKey(productId) && addition > 0)
-            return products.get(productId).addQty(addition);
-
-        return -1;
-    }
-
-    public int removeProductQty(String productId, int subtraction) {
-        int productQty;
-        if (products.containsKey(productId) && subtraction > 0) {
-            productQty = products.get(productId).removeQty(subtraction);
-
-            if (productQty == 0) removeProduct(productId);
-
-            return productQty;
+    public boolean addProductQty(String productId, int addition) {
+        if (products.containsKey(productId) && addition > 0) {
+            products.get(productId).addQty(addition);
+            return true;
         }
 
-        return -1;
+        return false;
+    }
+
+    public boolean removeProductQty(String productId, int subtraction) {
+        if (products.containsKey(productId) && subtraction > 0) {
+            products.get(productId).removeQty(subtraction);
+
+            if (products.get(productId).getQty() == 0) removeProduct(productId);
+
+            return true;
+        }
+
+        return false;
     }
 
     public double getProductTotalPrice(String productId) {
